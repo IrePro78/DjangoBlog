@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  web:
+    container_name: app_api_blog
+    restart: always
+    build: .
+
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+    command: python manage.py runserver 0.0.0.0:8000
+
+  db:
+    container_name: postgres_api_blog
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=django123
+      - POSTGRES_DB=django_blog
+
+volumes:
+  postgres_data:
