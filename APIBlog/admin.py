@@ -3,4 +3,12 @@ from .models import Article
 
 # Register your models here.
 
-admin.site.register(Article)
+# admin.site.register(Article)
+
+class PostsAdmin(admin.ModelAdmin):
+    list_display ={
+
+
+
+
+    }
