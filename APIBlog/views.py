@@ -1,5 +1,4 @@
 from rest_framework.generics import get_object_or_404
-
 from .serializers import ArticleSerializer
 from rest_framework.decorators import api_view, APIView
 from rest_framework.response import Response
