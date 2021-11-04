@@ -7,8 +7,6 @@ from .models import Article
 
 class PostsAdmin(admin.ModelAdmin):
     list_display ={
-
-
-
+        admin.site.register(Article)
 
     }

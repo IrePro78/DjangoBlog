@@ -1,13 +1,41 @@
-from rest_framework.generics import get_object_or_404
-from .serializers import ArticleSerializer
-from rest_framework.decorators import api_view, APIView
-from rest_framework.response import Response
-from rest_framework import status, generics, mixins
+from django.contrib.auth.models import User
+
 from .models import Article
 from rest_framework import viewsets
+from .serializers import ArticleSerializer, UserSerialaizer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 
 
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerialaizer
+
+
+
+"""
+class ArticleViewSet(viewsets.GenericViewSet,
+                     mixins.ListModelMixin,
+                     mixins.CreateModelMixin,
+                     mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.DestroyModelMixin):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+"""
+
+
+"""
 class ArticleViewSet(viewsets.ViewSet):
 
     def get(self, request):
@@ -42,6 +70,8 @@ class ArticleViewSet(viewsets.ViewSet):
         article = Article.objects.get(pk=pk)
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+"""
 
 """
 class ArticleList(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
